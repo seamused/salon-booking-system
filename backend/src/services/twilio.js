@@ -40,6 +40,12 @@ async function sendClientConfirmation(appointment) {
 async function sendOwnerNotification(appointment) {
   if (!process.env.TWILIO_ACCOUNT_SID) return;
 
+  const ownerPhone = process.env.SALON_OWNER_PHONE || branding.ownerPhone;
+  if (!ownerPhone) {
+    console.warn("No SALON_OWNER_PHONE configured — skipping owner SMS");
+    return;
+  }
+
   const message =
     `New booking at ${branding.salonName}!\n` +
     `👤 ${appointment.client_name} (${appointment.client_phone})\n` +
@@ -49,7 +55,7 @@ async function sendOwnerNotification(appointment) {
   return getClient().messages.create({
     body: message,
     from: process.env.TWILIO_PHONE_NUMBER,
-    to: branding.ownerPhone,
+    to: ownerPhone,
   });
 }
 

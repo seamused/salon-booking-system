@@ -122,4 +122,23 @@ async function getAvailableSlots(dateStr, serviceDuration) {
   return slots;
 }
 
-module.exports = { getAvailableSlots, isDateBlocked, getHoursForDate };
+async function getBatchedAvailabilityData(todayStr, endDateStr) {
+  const [{ data: blockedRows }, { data: specificOverrides }, { data: dowOverrides }] =
+    await Promise.all([
+      supabase.from("blocked_dates").select("date").gte("date", todayStr).lte("date", endDateStr),
+      supabase
+        .from("business_hours_overrides")
+        .select("*")
+        .gte("specific_date", todayStr)
+        .lte("specific_date", endDateStr)
+        .not("specific_date", "is", null),
+      supabase.from("business_hours_overrides").select("*").is("specific_date", null),
+    ]);
+  return {
+    blockedSet: new Set((blockedRows || []).map((r) => r.date)),
+    specificOverrideMap: new Map((specificOverrides || []).map((r) => [r.specific_date, r])),
+    dowOverrideMap: new Map((dowOverrides || []).map((r) => [r.day_of_week, r])),
+  };
+}
+
+module.exports = { getAvailableSlots, isDateBlocked, getHoursForDate, getBatchedAvailabilityData };

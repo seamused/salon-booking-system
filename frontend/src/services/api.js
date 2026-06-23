@@ -2,6 +2,17 @@ import axios from "axios";
 
 const api = axios.create({ baseURL: "/api" });
 
+// Module-level availability cache — survives step navigation within the session
+const _cache = new Map();
+const DATES_TTL = 5 * 60 * 1000;
+const SLOTS_TTL = 2 * 60 * 1000;
+
+function withCache(key, ttl, fetcher) {
+  const hit = _cache.get(key);
+  if (hit && Date.now() - hit.ts < ttl) return Promise.resolve(hit.data);
+  return fetcher().then((data) => { _cache.set(key, { data, ts: Date.now() }); return data; });
+}
+
 // Attach JWT for admin requests
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("adminToken");
@@ -11,8 +22,14 @@ api.interceptors.request.use((config) => {
 
 // Public
 export const getConfig = () => api.get("/config").then((r) => r.data);
-export const getAvailableDates = (serviceId) => api.get("/availability/dates", { params: { serviceId } }).then((r) => r.data);
-export const getAvailableSlots = (date, serviceId) => api.get("/availability/slots", { params: { date, serviceId } }).then((r) => r.data);
+export const getAvailableDates = (serviceId) =>
+  withCache(`dates:${serviceId}`, DATES_TTL, () =>
+    api.get("/availability/dates", { params: { serviceId } }).then((r) => r.data)
+  );
+export const getAvailableSlots = (date, serviceId) =>
+  withCache(`slots:${serviceId}:${date}`, SLOTS_TTL, () =>
+    api.get("/availability/slots", { params: { date, serviceId } }).then((r) => r.data)
+  );
 export const createBooking = (data) => api.post("/bookings", data).then((r) => r.data);
 export const getBooking = (id) => api.get(`/bookings/${id}`).then((r) => r.data);
 export const cancelBooking = (id) => api.patch(`/bookings/${id}/cancel`).then((r) => r.data);

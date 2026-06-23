@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { format, parseISO, addDays } from "date-fns";
 import { getAvailableDates, getAvailableSlots } from "../../services/api";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 function formatTime(time) {
   const [h, m] = time.split(":").map(Number);
@@ -64,39 +65,42 @@ export default function DateTimePicker({ service, value, onChange }) {
           <strong>{format(calendarMonth, "MMMM yyyy")}</strong>
           <button type="button" className="btn btn-ghost" onClick={nextMonth}>›</button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: "2px", textAlign: "center" }}>
-          {["Su","Mo","Tu","We","Th","Fr","Sa"].map((d) => (
-            <div key={d} style={{ fontSize: "0.7rem", fontWeight: 700, color: "#aaa", padding: "0.25rem 0" }}>{d}</div>
-          ))}
-          {calDays.map((date, i) => {
-            if (!date) return <div key={i} />;
-            const str = format(date, "yyyy-MM-dd");
-            const isAvailable = availableDates.includes(str);
-            const isSelected = str === selectedDate;
-            const isPast = date < new Date(new Date().setHours(0,0,0,0));
-            return (
-              <button
-                key={str}
-                type="button"
-                disabled={!isAvailable || isPast || loadingDates}
-                onClick={() => handleDateClick(date)}
-                style={{
-                  padding: "0.5rem 0.25rem",
-                  borderRadius: "var(--radius)",
-                  border: "none",
-                  background: isSelected ? "var(--primary)" : isAvailable ? "var(--accent)" : "transparent",
-                  color: isSelected ? "#fff" : !isAvailable ? "#ccc" : "var(--text)",
-                  fontWeight: isSelected ? 700 : 400,
-                  cursor: isAvailable && !isPast ? "pointer" : "default",
-                  fontSize: "0.9rem",
-                }}
-              >
-                {date.getDate()}
-              </button>
-            );
-          })}
-        </div>
-        {loadingDates && <p style={{ textAlign: "center", color: "#aaa", fontSize: "0.8rem", marginTop: "0.5rem" }}>Loading availability…</p>}
+        {loadingDates ? (
+          <LoadingSpinner message="Checking availability…" />
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: "2px", textAlign: "center" }}>
+            {["Su","Mo","Tu","We","Th","Fr","Sa"].map((d) => (
+              <div key={d} style={{ fontSize: "0.7rem", fontWeight: 700, color: "#aaa", padding: "0.25rem 0" }}>{d}</div>
+            ))}
+            {calDays.map((date, i) => {
+              if (!date) return <div key={i} />;
+              const str = format(date, "yyyy-MM-dd");
+              const isAvailable = availableDates.includes(str);
+              const isSelected = str === selectedDate;
+              const isPast = date < new Date(new Date().setHours(0,0,0,0));
+              return (
+                <button
+                  key={str}
+                  type="button"
+                  disabled={!isAvailable || isPast}
+                  onClick={() => handleDateClick(date)}
+                  style={{
+                    padding: "0.5rem 0.25rem",
+                    borderRadius: "var(--radius)",
+                    border: "none",
+                    background: isSelected ? "var(--primary)" : isAvailable ? "var(--accent)" : "transparent",
+                    color: isSelected ? "#fff" : !isAvailable ? "#ccc" : "var(--text)",
+                    fontWeight: isSelected ? 700 : 400,
+                    cursor: isAvailable && !isPast ? "pointer" : "default",
+                    fontSize: "0.9rem",
+                  }}
+                >
+                  {date.getDate()}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       {/* Time slots */}
@@ -106,7 +110,7 @@ export default function DateTimePicker({ service, value, onChange }) {
             Available times for {format(parseISO(selectedDate), "EEEE, MMMM d")}
           </p>
           {loadingSlots ? (
-            <p style={{ color: "#aaa", fontSize: "0.9rem" }}>Loading slots…</p>
+            <LoadingSpinner message="Loading available times…" />
           ) : slots.length === 0 ? (
             <p style={{ color: "#888", fontSize: "0.9rem" }}>No available times on this date.</p>
           ) : (

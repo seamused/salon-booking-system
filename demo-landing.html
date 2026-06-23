@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infinity Vision Hair Salon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #ec395f;
+      --secondary: #c66e81;
+      --tertiary:  #a81f3d;
+      --accent:    #f5f0eb;
+      --text:      #333333;
+      --light:     #fff;
+      --radius:    10px;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(236,57,95,0.12);
+    }
+
+    nav .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--tertiary);
+      letter-spacing: 0.01em;
+    }
+
+    nav .book-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      font-family: "Inter", sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    nav .book-btn:hover { background: var(--tertiary); }
+
+    /* ── Hero ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 4rem;
+      background:
+        linear-gradient(160deg, rgba(236,57,95,0.08) 0%, rgba(198,110,129,0.06) 50%, rgba(245,240,235,0.9) 100%),
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 60px,
+          rgba(236,57,95,0.03) 60px,
+          rgba(236,57,95,0.03) 61px
+        );
+    }
+
+    .hero-inner { max-width: 680px; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: #1a1a1a;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #666;
+      font-weight: 300;
+      max-width: 500px;
+      margin: 0 auto 2.25rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      font-family: "Inter", sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 20px rgba(236,57,95,0.3);
+    }
+    .btn-primary:hover { background: var(--tertiary); transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1.5px solid var(--primary);
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      font-family: "Inter", sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+
+    /* ── Stats strip ───────────────────────────────── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .stat {
+      flex: 1;
+      max-width: 220px;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: "Playfair Display", serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* ── Services ──────────────────────────────────── */
+    section { padding: 5rem 1.5rem; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-eyebrow {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: #1a1a1a;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border-left: 3px solid var(--primary);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(236,57,95,0.12); }
+
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 0.3rem;
+    }
+
+    .service-card p {
+      font-size: 0.83rem;
+      color: #777;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-price {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .services-cta {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+
+    /* ── About ─────────────────────────────────────── */
+    .about {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .about-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about .section-eyebrow { color: var(--secondary); }
+
+    .about h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 1.5rem;
+    }
+
+    .about p {
+      font-size: 1.05rem;
+      color: #bbb;
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .about p strong { color: var(--secondary); font-weight: 600; }
+
+    /* ── Contact ───────────────────────────────────── */
+    .contact-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    @media (max-width: 580px) {
+      .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .stats { flex-wrap: wrap; }
+      .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    }
+
+    .contact-inner h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #1a1a1a;
+    }
+
+    .contact-inner p {
+      color: #666;
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(236,57,95,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+
+    .contact-detail-text strong {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 0.15rem;
+    }
+
+    .contact-detail-text span { font-size: 0.95rem; color: #444; }
+
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table td {
+      padding: 0.45rem 0;
+      font-size: 0.9rem;
+      color: #555;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .hours-table td:last-child { text-align: right; font-weight: 500; color: #333; }
+
+    /* ── Footer ────────────────────────────────────── */
+    footer {
+      background: var(--tertiary);
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    footer strong { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <span class="logo">Infinity Vision Hair Salon</span>
+    <a class="book-btn" href="https://salon-booking-system-cyan.vercel.app">Book Now</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Allston, MA · Est. by Tania</span>
+      <h1>Your hair,<br /><em>your vision.</em></h1>
+      <p>Creating a unique and personalized experience for each client — with 20 years of expertise and genuine care.</p>
+      <div class="cta-group">
+        <a class="btn-primary" href="https://salon-booking-system-cyan.vercel.app">Book Now</a>
+        <a class="btn-outline" href="tel:+18576158731">Call (857) 615-8731</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-number">20+</span>
+      <span class="stat-label">Years of Experience</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">13</span>
+      <span class="stat-label">Services Offered</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">7</span>
+      <span class="stat-label">Days a Week</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">1:1</span>
+      <span class="stat-label">Personal Attention</span>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section>
+    <div class="section-header">
+      <span class="section-eyebrow">What we offer</span>
+      <h2>Our Services</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Bang Trim</h3>
+        <p>Quick trim — complimentary when booked with a cut</p>
+        <span class="service-price">$25</span>
+      </div>
+      <div class="service-card">
+        <h3>Woman's Haircut</h3>
+        <p>Precision cut tailored to your facial structure</p>
+        <span class="service-price">$65</span>
+      </div>
+      <div class="service-card">
+        <h3>Man's Haircut</h3>
+        <p>Clean, styled haircut</p>
+        <span class="service-price">$40</span>
+      </div>
+      <div class="service-card">
+        <h3>Cut, Blowdry & Style</h3>
+        <p>Full cut with professional blowdry finish</p>
+        <span class="service-price">$85</span>
+      </div>
+      <div class="service-card">
+        <h3>Balayage</h3>
+        <p>Freehand-painted for seamless, dimensional color</p>
+        <span class="service-price">from $199</span>
+      </div>
+      <div class="service-card">
+        <h3>Amber Hair</h3>
+        <p>Signature warm amber tones</p>
+        <span class="service-price">from $210</span>
+      </div>
+      <div class="service-card">
+        <h3>Full Highlights</h3>
+        <p>Full head highlights</p>
+        <span class="service-price">from $170</span>
+      </div>
+      <div class="service-card">
+        <h3>Color Correction</h3>
+        <p>Corrective color — consultation recommended</p>
+        <span class="service-price">from $85</span>
+      </div>
+    </div>
+    <div class="services-cta">
+      <a class="btn-primary" href="https://salon-booking-system-cyan.vercel.app">Book a Service</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about">
+    <div class="about-inner">
+      <span class="section-eyebrow">Meet your stylist</span>
+      <h2>Tania — 20 Years of Artistry</h2>
+      <p>
+        At Infinity Vision Hair Salon, every appointment begins with a conversation.
+        <strong>Tania</strong> evaluates your facial structure, hair quality, and personal preferences
+        before ever picking up the scissors — because great hair starts with listening.
+      </p>
+      <p>
+        "Infinity Vision describes the career choice of my life — with love, caring, and
+        providing the cure for the soul with extreme professionalism."
+      </p>
+      <br />
+      <a class="btn-primary" href="https://salon-booking-system-cyan.vercel.app">Book an Appointment</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section>
+    <div class="contact-inner">
+      <div>
+        <h2>Find Us</h2>
+        <p>We'd love to see you. Walk-ins welcome — or book ahead to secure your spot.</p>
+        <br />
+        <div class="contact-detail">
+          <div class="contact-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Address</strong>
+            <span>24 Denby Road, Suite #115<br />Allston, MA 02134</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span><a href="tel:+18576158731" style="color:#444;text-decoration:none;">(857) 615-8731</a></span>
+          </div>
+        </div>
+        <br />
+        <a class="btn-primary" href="https://salon-booking-system-cyan.vercel.app">Book Online</a>
+      </div>
+      <div>
+        <h2>Hours</h2>
+        <table class="hours-table">
+          <tbody>
+            <tr><td>Monday</td><td>10:00 AM – 8:00 PM</td></tr>
+            <tr><td>Tuesday</td><td>10:00 AM – 8:00 PM</td></tr>
+            <tr><td>Wednesday</td><td>10:00 AM – 8:00 PM</td></tr>
+            <tr><td>Thursday</td><td>10:00 AM – 8:00 PM</td></tr>
+            <tr><td>Friday</td><td>10:00 AM – 8:00 PM</td></tr>
+            <tr><td>Saturday</td><td>10:00 AM – 8:00 PM</td></tr>
+            <tr><td>Sunday</td><td>10:00 AM – 8:00 PM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p><strong>Infinity Vision Hair Salon</strong> · 24 Denby Road, Suite #115, Allston, MA 02134 · (857) 615-8731</p>
+    <p style="margin-top:0.4rem;">© 2026 Infinity Vision Hair Salon. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

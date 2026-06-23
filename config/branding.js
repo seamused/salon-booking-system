@@ -1,15 +1,16 @@
 module.exports = {
-  salonName: "Glamour Studio",
-  tagline: "Where beauty meets excellence",
-  phone: "+15555550100",
-  email: "hello@glamourstudio.com",
-  address: "123 Main Street, New York, NY 10001",
-  website: "https://glamourstudio.com",
+  salonName: "Infinity Vision Hair Salon",
+  tagline: "Creating a unique and personalized experience for each client",
+  phone: "+18576158731",
+  email: null, // not listed on website
+  address: "24 Denby Road, Suite #115, Allston, MA 02134",
+  website: "https://infinityvisionhairsalon.com",
   timezone: "America/New_York",
-  ownerPhone: "+15555550100", // receives SMS confirmations
+  ownerPhone: "+18576158731", // receives SMS confirmations
   colors: {
-    primary: "#c9a96e",
-    secondary: "#1a1a1a",
+    primary: "#ec395f",
+    secondary: "#c66e81",
+    tertiary: "#a81f3d",
     accent: "#f5f0eb",
     text: "#333333",
   },

@@ -1,8 +1,9 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary: #c9a96e;
-  --secondary: #1a1a1a;
+  --primary: #ec395f;
+  --secondary: #c66e81;
+  --tertiary: #a81f3d;
   --accent: #f5f0eb;
   --text: #333333;
   --border: #e0dbd4;

@@ -13,12 +13,12 @@ module.exports = {
 
   // Days of week: 0=Sunday, 1=Monday, ... 6=Saturday
   hours: {
-    0: { isOpen: false }, // Sunday
-    1: { isOpen: true, open: "09:00", close: "18:00" }, // Monday
-    2: { isOpen: true, open: "09:00", close: "18:00" }, // Tuesday
-    3: { isOpen: true, open: "09:00", close: "20:00" }, // Wednesday
-    4: { isOpen: true, open: "09:00", close: "20:00" }, // Thursday
-    5: { isOpen: true, open: "09:00", close: "18:00" }, // Friday
-    6: { isOpen: true, open: "10:00", close: "16:00" }, // Saturday
+    0: { isOpen: true, open: "10:00", close: "20:00" }, // Sunday
+    1: { isOpen: true, open: "10:00", close: "20:00" }, // Monday
+    2: { isOpen: true, open: "10:00", close: "20:00" }, // Tuesday
+    3: { isOpen: true, open: "10:00", close: "20:00" }, // Wednesday
+    4: { isOpen: true, open: "10:00", close: "20:00" }, // Thursday
+    5: { isOpen: true, open: "10:00", close: "20:00" }, // Friday
+    6: { isOpen: true, open: "10:00", close: "20:00" }, // Saturday
   },
 };

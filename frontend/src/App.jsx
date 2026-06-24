@@ -13,20 +13,26 @@ export default function App() {
   const [config, setConfig] = useState(defaultConfig);
 
   useEffect(() => {
-    getConfig().then(setConfig).catch(console.error);
+    getConfig()
+      .then((data) => {
+        setConfig(data);
+        // Apply brand colors only from the server response, never from defaultConfig,
+        // so index.css values hold until the real config arrives with no visible flash.
+        const c = data.branding?.colors;
+        if (c) {
+          const root = document.documentElement;
+          if (c.primary)   root.style.setProperty("--primary",   c.primary);
+          if (c.secondary) root.style.setProperty("--secondary", c.secondary);
+          if (c.tertiary)  root.style.setProperty("--tertiary",  c.tertiary);
+          if (c.accent)    root.style.setProperty("--accent",    c.accent);
+          if (c.text)      root.style.setProperty("--text",      c.text);
+        }
+        if (data.branding?.salonName) {
+          document.title = data.branding.salonName;
+        }
+      })
+      .catch(console.error);
   }, []);
-
-  // Apply branding CSS variables
-  useEffect(() => {
-    if (!config.branding?.colors) return;
-    const root = document.documentElement;
-    const c = config.branding.colors;
-    if (c.primary) root.style.setProperty("--primary", c.primary);
-    if (c.secondary) root.style.setProperty("--secondary", c.secondary);
-    if (c.accent) root.style.setProperty("--accent", c.accent);
-    if (c.text) root.style.setProperty("--text", c.text);
-    document.title = config.branding.salonName || "Salon Booking";
-  }, [config]);
 
   return (
     <SalonContext.Provider value={config}>

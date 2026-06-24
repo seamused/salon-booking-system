@@ -1,4 +1,6 @@
-// Loaded at runtime from /api/config — this is just the shape/fallback
+// Loaded at runtime from /api/config — this is just the shape/fallback.
+// Colors here must match index.css :root variables to avoid a flash if ever
+// used to apply styles before the server config arrives.
 export const defaultConfig = {
   branding: {
     salonName: "Salon",
@@ -8,10 +10,11 @@ export const defaultConfig = {
     address: "",
     timezone: "America/New_York",
     colors: {
-      primary: "#c9a96e",
-      secondary: "#1a1a1a",
-      accent: "#f5f0eb",
-      text: "#333333",
+      primary:   "#ec395f",
+      secondary: "#c66e81",
+      tertiary:  "#a81f3d",
+      accent:    "#f5f0eb",
+      text:      "#333333",
     },
   },
   services: [],
